@@ -1,0 +1,52 @@
+import express from "express";
+import { userModel } from "../user/user.model.js";
+import {
+  loginValidation,
+  registrationValidation,
+} from "../user/user.validation.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+const router = express.Router();
+
+router.get("/", (req, res) => {
+  res.json({ msg: "User api is working" });
+});
+
+router.post("/register", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const validateData = await registrationValidation.validate(data);
+    const salt = await bcrypt.genSalt(10);
+    validateData.password = await bcrypt.hash(validateData.password, salt);
+    const existedUser = await userModel.findOne({ email: validateData.email });
+    if (existedUser) throw new Error("User exists try with another email");
+    const result = await userModel.create(validateData);
+    res.json({ msg: "Success", data: result });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/login", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const validateData = await loginValidation.validate(data);
+    const user = await userModel.findOne({ email: validateData.email });
+
+    if (!user) throw new Error("User not found");
+    const isPasswordMatch = await bcrypt.compare(
+      validateData.password,
+      user.password
+    );
+    if (!isPasswordMatch) throw new Error("Invalid credentials");
+    const token = jwt.sign(
+      { email: validateData.email },
+      process.env.JWT_SECRET
+    );
+    res.json({ msg: "success", data: user, token });
+  } catch (error) {
+    next(error);
+  }
+});
+
+export default router;
