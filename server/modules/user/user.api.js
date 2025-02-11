@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
   res.json({ msg: "User api is working" });
 });
 
+//------register-------
 router.post("/register", async (req, res, next) => {
   try {
     const data = req.body;
@@ -27,6 +28,7 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+//--------login--------
 router.post("/login", async (req, res, next) => {
   try {
     const data = req.body;
