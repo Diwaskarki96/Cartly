@@ -90,6 +90,14 @@ router.put(
   },
   async (req, res, next) => {
     try {
+      const authorization = req?.headers?.authorization;
+      const token = authorization?.split(" ")[1];
+      if (!token) throw new Error("Unauthorized");
+      const payload = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userModel.findOne({ email: payload.email });
+      if (!user) throw new Error("Unauthorized");
+      const role = user?.role;
+      if (role === "user") throw new Error("Only admin can edit product");
       const data = req.body;
       const validateData = await productValidation.validate(data);
       const productId = req.params.id;
@@ -129,6 +137,9 @@ router.delete(
       const payload = await jwt.verify(token, process.env.JWT_SECRET);
       const user = await userModel.findOne({ email: payload.email });
       if (!user) throw new Error("Unauthorized");
+      const role = user?.role;
+      if (role === "user") throw new Error("Only admin can delete products");
+      console.log(user);
       const productId = req.params.id;
       if (!productId) throw new Error("Product not found");
       const deleteSingleProduct = await productModel.deleteOne({
@@ -143,4 +154,22 @@ router.delete(
     }
   }
 );
+//------delete all product------
+router.delete("/alldelete", async (req, res, next) => {
+  try {
+    const authorization = req?.headers?.authorization;
+    const token = authorization?.split(" ")[1];
+    if (!token) throw new Error("Unauthorized");
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await userModel.findOne({ email: payload.email });
+    if (!user) throw new Error("Unauthorized");
+    const deleteAllProduct = await productModel.deleteMany();
+    res.json({
+      msg: "Product has been deleted successfully",
+      data: deleteAllProduct,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 export default router;
