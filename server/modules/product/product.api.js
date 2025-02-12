@@ -33,7 +33,7 @@ router.post(
       const data = req.body;
       const validateData = await productValidation.validate(data);
       const result = await productModel.create(validateData);
-      res.json({ msg: "success", data: result });
+      res.json({ msg: "Product has been added successfully", data: result });
     } catch (error) {
       next(error);
     }
@@ -99,7 +99,45 @@ router.put(
         validateData,
         { new: true }
       );
-      res.json({ msg: "success", data: updateProduct });
+      res.json({
+        msg: "Product has been edited successfully",
+        data: updateProduct,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+//------delete single product------
+router.delete(
+  "/delete/:id",
+  (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const isValidateId = mongoose.isValidObjectId(id);
+      if (!isValidateId) throw new Error("Invalid id");
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  async (req, res, next) => {
+    try {
+      const authorization = req?.headers?.authorization;
+      const token = authorization?.split(" ")[1];
+      if (!token) throw new Error("Unauthorized");
+      const payload = await jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userModel.findOne({ email: payload.email });
+      if (!user) throw new Error("Unauthorized");
+      const productId = req.params.id;
+      if (!productId) throw new Error("Product not found");
+      const deleteSingleProduct = await productModel.deleteOne({
+        _id: productId,
+      });
+      res.json({
+        msg: "Product has been deleted successfully",
+        data: deleteSingleProduct,
+      });
     } catch (error) {
       next(error);
     }
