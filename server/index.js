@@ -4,6 +4,7 @@ import express from "express";
 import userRouter from "./modules/user/user.api.js";
 import productRouter from "./modules/product/product.api.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import cartRouter from "./modules/cart/cart.api.js";
 import mongoose from "mongoose";
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 app.use("/user", userRouter);
 app.use("/product", productRouter);
+app.use("/cart", cartRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
