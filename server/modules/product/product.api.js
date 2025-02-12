@@ -75,4 +75,34 @@ router.get("/allproducts", async (req, res, next) => {
   }
 });
 
+//-----edit single product-------
+router.put(
+  "/edit/:id",
+  (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const isValidId = mongoose.isValidObjectId(id);
+      if (!isValidId) throw new Error("Invalid id");
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  async (req, res, next) => {
+    try {
+      const data = req.body;
+      const validateData = await productValidation.validate(data);
+      const productId = req.params.id;
+      if (!productId) throw new Error("Product not found");
+      const updateProduct = await productModel.findByIdAndUpdate(
+        productId,
+        validateData,
+        { new: true }
+      );
+      res.json({ msg: "success", data: updateProduct });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 export default router;
