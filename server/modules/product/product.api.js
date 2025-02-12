@@ -172,4 +172,13 @@ router.delete("/alldelete", async (req, res, next) => {
     next(error);
   }
 });
+//------featured products-----
+router.get("/featured", async (req, res, next) => {
+  try {
+    const featruredProduct = await productModel.find({ isFeatured: true });
+    res.json({ msg: "Featured Product", data: featruredProduct });
+  } catch (error) {
+    next(error);
+  }
+});
 export default router;

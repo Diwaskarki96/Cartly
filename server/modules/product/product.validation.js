@@ -39,4 +39,5 @@ export const productValidation = yup.object({
       "headphones",
       "gaming",
     ]),
+  isFeatured: yup.boolean().required("Featured is required").default(false),
 });

@@ -30,6 +30,7 @@ const productSchema = new mongoose.Schema(
     },
     size: { type: String, required: false, enum: ["xs", "s", "m", "l", "xl"] },
     isStock: { type: Boolean, required: true, default: true },
+    isFeatured: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 );
