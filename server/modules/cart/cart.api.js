@@ -171,7 +171,34 @@ router.delete(
     }
   }
 );
-
+//--------delete all cart------
+router.delete(
+  "/clear",
+  async (req, res, next) => {
+    try {
+      const authorization = req?.headers?.authorization;
+      const token = authorization?.split(" ")[1];
+      if (!token) throw new Error("Unauthorized");
+      const payload = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userModel.findOne({ email: payload.email });
+      if (!user) throw new Error("Unauthorized");
+      const role = user.role;
+      req.buyerId = user._id;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  async (req, res, next) => {
+    try {
+      const buyerId = req.buyerId;
+      const deleteCart = await cartModel.deleteMany({ buyerId: buyerId });
+      res.json({ msg: "Cart is deleted successfully", data: deleteCart });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 //---------list all the cart if a user---------
 router.get("/allcart", (req, res, next) => {
   try {
@@ -179,5 +206,5 @@ router.get("/allcart", (req, res, next) => {
     next(error);
   }
 });
-//TODO:delete all cart, list all cart, cart item count
+//TODO:list all cart, cart item count
 export default router;
