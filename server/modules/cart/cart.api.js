@@ -171,7 +171,7 @@ router.delete(
     }
   }
 );
-//--------delete all cart------
+//--------delete all carts------
 router.delete(
   "/clear",
   async (req, res, next) => {
@@ -199,12 +199,34 @@ router.delete(
     }
   }
 );
-//---------list all the cart if a user---------
-router.get("/allcart", (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
+//---------list all the cart of a user---------
+router.get(
+  "/allcart",
+  async (req, res, next) => {
+    try {
+      const authorization = req?.headers?.authorization;
+      const token = authorization?.split(" ")[1];
+      if (!token) throw new Error("Unauthorized");
+      const payload = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userModel.findOne({ email: payload.email });
+      if (!user) throw new Error("Unauthorized");
+      const role = user.role;
+      if (role !== "user") throw new Error("Only user can clear all cart");
+      req.buyerId = user._id;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  async (req, res, next) => {
+    try {
+      const buyerId = req.buyerId;
+      const cartItems = await cartModel.find({ buyerId: buyerId });
+      res.json({ msg: "Success", data: cartItems });
+    } catch (error) {
+      next(error);
+    }
   }
-});
-//TODO:list all cart, cart item count
+);
+//TODO: cart item count
 export default router;
