@@ -1,7 +1,9 @@
-import React from "react";
-
 const Homepage = () => {
-  return <div>Homepage</div>;
+  return (
+    <div>
+      <h1 className="text-xl">Homepage</h1>
+    </div>
+  );
 };
 
 export default Homepage;
