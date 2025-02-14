@@ -2,21 +2,17 @@ import { CiSearch } from "react-icons/ci";
 import { Input } from "../ui/input";
 const SearchBar = () => {
   return (
-    <div className="relative ">
+    <div className="relative  ">
       <Input
         placeholder="What are you looking for?"
-        className="pr-6"
-        width="230px"
+        className="pl-6 placeholder:text-sm dark:bg-muted  "
       />
 
       <>
-        <CiSearch
-          className="absolute top-[10px] left-[195px] font-extrabold"
-          fontWeight="bold"
-        />
+        <CiSearch className="absolute top-[10px] left-1 " />
       </>
     </div>
   );
 };
-
+// left-[215px] md:left-[195px]
 export default SearchBar;
