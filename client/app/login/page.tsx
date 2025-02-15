@@ -19,15 +19,15 @@ const LoginPage = () => {
       </div>
       <div className=" m-auto ">
         <div className="h-[530px] w-[371px] flex flex-col gap-10">
-          <h1 className="font-bold text-xl">Log in to Exclusive</h1>
-          <h1>Enter your details</h1>
+          <h1 className="font-bold text-xl ">Log in to Exclusive</h1>
+          <h1 className="">Enter your details</h1>
           <Input type="email" placeholder="Email" />
           <Input type="password" placeholder="Password" />
           <Button className="w-full">Create Account</Button>
-          <h1>
+          <h1 className="text-center">
             Already have account?
             <Link href="/signin">
-              <span className="underline">Sigin in</span>
+              <span className="underline ">Sign in</span>
             </Link>
           </h1>
         </div>
