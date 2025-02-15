@@ -5,7 +5,9 @@ import Providers from "./providers";
 import NavBar from "@/components/navbar/NavBar";
 import Footer from "@/components/footer/page";
 import Container from "@/components/global/Container";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProvidersWrapper from "./ProvidersWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   keywords:
     "Cartly, online shopping, eCommerce, best deals, buy online, fast delivery, secure payments",
 };
-
+const queryClient = new QueryClient();
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,9 +27,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <NavBar />
-          <Container className="">{children}</Container>
-          <Footer />
+          <ProvidersWrapper>
+            <NavBar />
+            <Container className="">{children}</Container>
+            <Footer />
+          </ProvidersWrapper>
         </Providers>
       </body>
     </html>
