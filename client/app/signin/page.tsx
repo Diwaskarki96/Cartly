@@ -1,3 +1,4 @@
+// 'use client
 // import Image from "next/image";
 // import React from "react";
 
@@ -25,41 +26,81 @@
 // };
 
 // export default SigninPage;
-
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+import { Formik } from "formik";
+import { signinValidation } from "@/validation/signinValidation";
 const SigninPage = () => {
+  // usemua
   return (
     <div className="w-[1305px] h-[781px] flex  ">
       <div className="w-[805px] h-[781px]">
         <Image
           src="/images/login.png"
           alt="image"
-          height={781}
-          width={805}
+          height={681}
+          width={705}
           priority
           // className="h-[600px] w-[800px]"
         />
       </div>
       <div className=" m-auto ">
-        <div className="h-[530px] w-[371px] flex flex-col gap-10">
-          <h1>Create an Account</h1>
-          <h1>Enter your details</h1>
-          <Input type="text" placeholder="Name" />
-          <Input type="email" placeholder="Email" />
-          <Input type="password" placeholder="Password" />
-          <Button className="w-full">Create Account</Button>
-          <h1>
-            Already have account?
-            <Link href="/login">
-              <span className="underline">Log in</span>
-            </Link>
-          </h1>
-        </div>
+        <Formik
+          initialValues={{ email: "", password: "", name: "" }}
+          validationSchema={signinValidation}
+          onSubmit={(values) => {
+            console.log(values);
+          }}
+        >
+          {(formik) => {
+            return (
+              <form
+                onSubmit={formik.handleSubmit}
+                className="h-[530px] w-[371px] flex flex-col gap-10"
+              >
+                <h1 className="font-bold text-xl">Create an Account</h1>
+                <h1>Enter your details</h1>
+                <Input
+                  {...formik.getFieldProps("name")}
+                  type="text"
+                  placeholder="Name"
+                />
+                {formik.touched.name && formik.errors.name ? (
+                  <p>{formik.errors.name}</p>
+                ) : null}
+                <Input
+                  {...formik.getFieldProps("email")}
+                  type="email"
+                  placeholder="Email"
+                />
+                {formik.touched.email && formik.errors.email ? (
+                  <p>{formik.errors.email}</p>
+                ) : null}
+                <Input
+                  {...formik.getFieldProps("password")}
+                  type="password"
+                  placeholder="Password"
+                />
+                {formik.touched.password && formik.errors.password ? (
+                  <p>{formik.errors.password}</p>
+                ) : null}
+                <Button type="submit" className="w-full">
+                  Create Account
+                </Button>
+                <h1 className="text-center">
+                  Already have account?
+                  <Link href="/login">
+                    <span className="underline">Log in</span>
+                  </Link>
+                </h1>
+              </form>
+            );
+          }}
+        </Formik>
       </div>
     </div>
   );
