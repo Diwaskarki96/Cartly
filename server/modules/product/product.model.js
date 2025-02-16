@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import productImage from "client/public/images/acer.jpg";
 const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, minLength: 3, maxLength: 50 },
@@ -31,6 +31,11 @@ const productSchema = new mongoose.Schema(
     size: { type: String, required: false, enum: ["xs", "s", "m", "l", "xl"] },
     isStock: { type: Boolean, required: true, default: true },
     isFeatured: { type: Boolean, required: true, default: false },
+    productImage: {
+      type: String,
+      required: true,
+      default: productImage,
+    },
   },
   { timestamps: true }
 );
