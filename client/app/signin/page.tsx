@@ -65,6 +65,7 @@ const SigninPage = () => {
                 <h1 className="font-bold text-xl">Create an Account</h1>
                 <h1>Enter your details</h1>
                 <Input
+                  className="dark:bg-muted"
                   {...formik.getFieldProps("name")}
                   type="text"
                   placeholder="Name"
@@ -72,7 +73,9 @@ const SigninPage = () => {
                 {formik.touched.name && formik.errors.name ? (
                   <p>{formik.errors.name}</p>
                 ) : null}
+
                 <Input
+                  className="dark:bg-muted"
                   {...formik.getFieldProps("email")}
                   type="email"
                   placeholder="Email"
@@ -81,6 +84,7 @@ const SigninPage = () => {
                   <p>{formik.errors.email}</p>
                 ) : null}
                 <Input
+                  className="dark:bg-muted"
                   {...formik.getFieldProps("password")}
                   type="password"
                   placeholder="Password"
