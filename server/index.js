@@ -6,6 +6,7 @@ import productRouter from "./modules/product/product.api.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import cartRouter from "./modules/cart/cart.api.js";
 import mongoose from "mongoose";
+import cors from "cors";
 const app = express();
 
 const PORT = process.env.PORT;
@@ -16,7 +17,7 @@ mongoose.connect(DB_URL).then(() => {
 });
 
 app.use(express.json());
-
+app.use(cors());
 app.get("/", (req, res) => {
   res.json({ msg: "Api is working" });
 });

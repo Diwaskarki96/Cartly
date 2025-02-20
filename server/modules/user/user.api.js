@@ -22,7 +22,7 @@ router.post("/register", async (req, res, next) => {
     const existedUser = await userModel.findOne({ email: validateData.email });
     if (existedUser) throw new Error("User exists try with another email");
     const result = await userModel.create(validateData);
-    res.json({ msg: "Success", data: result });
+    res.json({ msg: "User is registered successfully", data: result });
   } catch (error) {
     next(error);
   }
@@ -46,7 +46,7 @@ router.post("/login", async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: "2hr" }
     );
-    res.json({ msg: "success", data: user, token });
+    res.json({ msg: "Login successfull", data: user, token });
   } catch (error) {
     next(error);
   }
