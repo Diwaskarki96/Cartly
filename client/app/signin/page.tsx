@@ -34,8 +34,37 @@ import Link from "next/link";
 import React from "react";
 import { Formik } from "formik";
 import { signinValidation } from "@/validation/signinValidation";
+import { useMutation } from "@tanstack/react-query";
+import { $axios } from "@/axios/axiosInstance";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 const SigninPage = () => {
-  // usemua
+  const { toast } = useToast();
+  const showToast = (msg: string, type: "success" | "error") => {
+    toast({
+      description: msg,
+      variant: type === "success" ? "default" : "destructive",
+      // variant: type, // Assuming your toast component supports a variant prop
+    });
+  };
+
+  const router = useRouter();
+  const { isPending, mutate } = useMutation({
+    mutationKey: ["signin"],
+    mutationFn: async (values) => {
+      return await $axios.post("/user/register", values);
+    },
+    onSuccess: (res) => {
+      //console.log(res?.data?.msg);
+      showToast(res?.data?.msg, "success");
+      router.push("/");
+    },
+    onError: (error) => {
+      console.log(error);
+      showToast(error?.response?.data?.msg || "Something went wrong", "error");
+    },
+  });
+
   return (
     <div className="w-[1305px] h-[781px] flex  ">
       <div className="w-[805px] h-[781px]">
@@ -49,11 +78,12 @@ const SigninPage = () => {
         />
       </div>
       <div className=" m-auto ">
+        {isPending && <p>Loading...</p>}
         <Formik
           initialValues={{ email: "", password: "", name: "" }}
           validationSchema={signinValidation}
           onSubmit={(values) => {
-            console.log(values);
+            mutate(values);
           }}
         >
           {(formik) => {
@@ -92,13 +122,13 @@ const SigninPage = () => {
                 {formik.touched.password && formik.errors.password ? (
                   <p>{formik.errors.password}</p>
                 ) : null}
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" disabled={isPending}>
                   Create Account
                 </Button>
                 <h1 className="text-center">
                   Already have account?
                   <Link href="/login">
-                    <span className="underline">Log in</span>
+                    <span className="underline ml-1">Log in</span>
                   </Link>
                 </h1>
               </form>
