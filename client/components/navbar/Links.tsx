@@ -3,10 +3,13 @@ import React from "react";
 
 const Links = () => {
   return (
-    <div className="w-[267px] hidden md:block">
+    <div className="w-[300px] hidden md:block lg:w-[400px]">
       <ul className="flex  h-full justify-between text-muted-foreground items-center">
         <Link href="/">
           <li>Home</li>
+        </Link>
+        <Link href="/product">
+          <li>Product</li>
         </Link>
         <Link href="contact">
           <li>Contact</li>

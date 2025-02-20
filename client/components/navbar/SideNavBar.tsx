@@ -39,6 +39,9 @@ const SideNavBar = ({
           <Link href="/">
             <li className="border-b border-gray-600">Home</li>
           </Link>
+          <Link href="/product">
+            <li className="border-b border-gray-600">Product</li>
+          </Link>
           <Link href="/contact">
             <li className="border-b border-gray-600">Contact</li>
           </Link>
