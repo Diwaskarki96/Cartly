@@ -1,12 +1,11 @@
+import Footer from "@/components/footer/page";
+import Container from "@/components/global/Container";
+import NavBar from "@/components/navbar/NavBar";
+import { QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-import NavBar from "@/components/navbar/NavBar";
-import Footer from "@/components/footer/page";
-import Container from "@/components/global/Container";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProvidersWrapper from "./ProvidersWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +16,6 @@ export const metadata: Metadata = {
   keywords:
     "Cartly, online shopping, eCommerce, best deals, buy online, fast delivery, secure payments",
 };
-const queryClient = new QueryClient();
 export default function RootLayout({
   children,
 }: Readonly<{
