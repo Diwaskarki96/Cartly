@@ -27,7 +27,7 @@ const LoginPage = () => {
           <h1 className="text-center">
             Already have account?
             <Link href="/signin">
-              <span className="underline ">Sign in</span>
+              <span className="underline ml-1">Sign in</span>
             </Link>
           </h1>
         </div>

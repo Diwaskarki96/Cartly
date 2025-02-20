@@ -8,15 +8,14 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 import SideNavBar from "./SideNavBar";
 import { Sheet, SheetTrigger } from "../ui/sheet";
-import { Button } from "../ui/button";
 const NavBar = () => {
   const [nav, setNav] = useState<boolean>(false);
   const handleNav = () => {
     setNav(!nav);
   };
   return (
-    <div className="h-[100px] w-full flex justify-center items-center border-b-[1.5px] px-4 flex-wrap">
-      <div className="h-[38px] w-[1170px] flex justify-between">
+    <div className="h-[100px] w-full flex justify-center items-center border-b-[1.5px] px-4 ">
+      <div className="h-[38px] w-[1170px] flex justify-between items-center">
         <h1 className="text-2xl font-bold text-muted-foreground">Cartly</h1>
         <Links />
         <div className="flex  ml-2 gap-3 items-center md:justify-between">
@@ -40,9 +39,5 @@ const NavBar = () => {
     </div>
   );
 };
-{
-  /* <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
-      </SheetTrigger> */
-}
+
 export default NavBar;
