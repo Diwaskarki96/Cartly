@@ -1,9 +1,8 @@
 "use client";
-import LoadingContainer from "@/components/global/LoadingContainer";
 import React from "react";
 
 function loading() {
-  return <LoadingContainer />;
+  return <p>Loading...</p>;
 }
 
 export default loading;

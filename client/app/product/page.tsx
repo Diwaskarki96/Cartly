@@ -1,5 +1,6 @@
 "use client";
 import { $axios } from "@/axios/axiosInstance";
+import Breadcrumbs from "@/components/global/Breadcrumbs";
 import LoadingContainer from "@/components/global/LoadingContainer";
 import ProductCard from "@/components/products/ProductCard";
 import { useQuery } from "@tanstack/react-query";
@@ -13,13 +14,25 @@ const ProductPage = () => {
     },
   });
   console.log(data);
+  const products = data?.data?.data;
   if (isPending) {
     return <LoadingContainer />;
   }
   return (
     <div>
-      <h1>Products</h1>
-      <ProductCard />
+      <Breadcrumbs />
+
+      <h1 className="text-2xl mb-6 mt-4">Products</h1>
+
+      <div className="flex gap-6 ">
+        {products && products.length > 0 ? (
+          products.map((product) => {
+            return <ProductCard key={product._id} {...product} />;
+          })
+        ) : (
+          <p>No products found</p>
+        )}
+      </div>
     </div>
   );
 };
