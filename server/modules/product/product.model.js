@@ -24,13 +24,14 @@ const productSchema = new mongoose.Schema(
     price: { type: Number, required: true, min: 1 },
     quantity: { type: Number, required: true, min: 1 },
     color: {
-      type: String,
+      type: [String],
       required: true,
-      enum: ["Red", "Blue", "Green", "Black", "White", "Yellow"],
+      enum: ["red", "blue", "green", "black", "white", "yellow"],
     },
     size: { type: String, required: false, enum: ["xs", "s", "m", "l", "xl"] },
+    freeShipping: { type: Boolean, default: false },
     isStock: { type: Boolean, required: true, default: true },
-    isFeatured: { type: Boolean, required: true, default: false },
+    isFeatured: { type: Boolean, required: true, default: true },
     productImage: {
       type: String,
       required: true,
