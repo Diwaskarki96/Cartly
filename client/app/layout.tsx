@@ -27,7 +27,7 @@ export default function RootLayout({
         <Providers>
           <ProvidersWrapper>
             <NavBar />
-            <Container className="">{children}</Container>
+            <Container>{children}</Container>
             <Footer />
           </ProvidersWrapper>
         </Providers>
