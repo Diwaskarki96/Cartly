@@ -76,19 +76,23 @@ const ProductDetailPage = () => {
                 </Button>
               </div>
               <div className=" rounded border-[1.8px]">
-                <div className="p-6 border-b-[1.8px]">
-                  <div className="flex gap-6">
-                    <div className="flex items-center">
-                      <FaTruckFast className="text-5xl" />
-                    </div>
-                    <div>
-                      <p className="text-lg">Free Delivery</p>
-                      <p className="text-xs underline">
-                        Enter your postal code for Delivery Availability
-                      </p>
+                {productDetails?.freeShipping === true ? (
+                  <div className="p-6 border-b-[1.8px]">
+                    <div className="flex gap-6">
+                      <div className="flex items-center">
+                        <FaTruckFast className="text-5xl" />
+                      </div>
+                      <div>
+                        <p className="text-lg">Free Delivery</p>
+                        <p className="text-xs underline">
+                          Enter your postal code for Delivery Availability
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  []
+                )}
                 <div className="p-6 flex gap-6">
                   <div className="flex items-center">
                     <FaRecycle className="text-5xl" />
