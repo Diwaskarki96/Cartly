@@ -25,7 +25,7 @@ const ProductPage = () => {
       </div>
       <h1 className="text-2xl mb-6 mt-4">Products</h1>
 
-      <div className="flex flex-wrap gap-1 ">
+      <div className="flex justify-center flex-wrap gap-4 ">
         {products && products.length > 0 ? (
           products.map((product) => {
             return <ProductCard key={product._id} {...product} />;
