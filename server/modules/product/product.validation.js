@@ -3,11 +3,13 @@ import * as yup from "yup";
 export const productValidation = yup.object({
   name: yup
     .string()
+    .trim()
     .required("Name is required")
     .min(3, "Name must be at least 3 characters.")
     .max(50, "Name must be max 50 characters."),
   description: yup
     .string()
+    .trim()
     .required("Description is required")
     .min(3, "Description must be at least 3 characters.")
     .max(1000, "Description must be max 1000 characters."),
@@ -30,17 +32,20 @@ export const productValidation = yup.object({
         )
     )
     .required("Color is required"),
-  size: yup.string().oneOf(["xs", "s", "m", "l", "xl"], "Invalid size"),
+  size: yup.string().trim().oneOf(["xs", "s", "m", "l", "xl"], "Invalid size"),
   isStock: yup.boolean().required("Stock status is required").default(true),
   category: yup
     .string()
     .required("Category is required")
+    .trim()
+    .lowercase()
     .oneOf([
-      "phones",
+      "smartphone",
       "computer",
       "smartwatch",
       "camera",
-      "headphones",
+      "headphone",
+      "laptop",
       "gaming",
     ]),
   isFeatured: yup.boolean().required("Featured is required").default(false),
