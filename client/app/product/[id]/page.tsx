@@ -15,6 +15,7 @@ import { RiSubtractFill } from "react-icons/ri";
 import { FaTruckFast } from "react-icons/fa6";
 import { FaRecycle } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 const ProductDetailPage = () => {
   const router = useRouter();
   const params = useParams();
@@ -26,12 +27,12 @@ const ProductDetailPage = () => {
     },
   });
   const productDetails = data?.data?.data;
-  console.log(productDetails);
+  // if (isPending) {
+  //   return <Progress />;
+  // }
   return (
     <div>
-      <div className="my-8">
-        <Breadcrumbs />
-      </div>
+      <Breadcrumbs />
       <div className="w-full flex mt-6 ">
         <div className="w-3/5">image</div>
         <div className="w-2/5">

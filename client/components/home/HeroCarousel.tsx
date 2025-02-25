@@ -23,7 +23,7 @@ import Image from "next/image";
 export const HeroCarousel = () => {
   return (
     <Swiper
-      className="w-[1196px] h-[368px]"
+      className="w-full h-[368px]"
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       //spaceBetween={50}
       slidesPerView={1}
@@ -39,11 +39,11 @@ export const HeroCarousel = () => {
           <Image
             // width={800}
             // height={200}
-            className="object-cover w-full "
+            className="object-cover aspect-[3/1]"
             src={HeroBanner}
             alt="Laptop image"
             priority
-          ></Image>
+          />
         </div>
       </SwiperSlide>
       <SwiperSlide>
@@ -55,7 +55,7 @@ export const HeroCarousel = () => {
             src={SmartPhone}
             alt="Laptop image"
             priority
-          ></Image>
+          />
         </div>
       </SwiperSlide>
       <SwiperSlide>
@@ -66,7 +66,7 @@ export const HeroCarousel = () => {
           src={Laptop}
           alt="Laptop image"
           priority
-        ></Image>
+        />
       </SwiperSlide>
       <SwiperSlide>
         <Image
@@ -76,7 +76,7 @@ export const HeroCarousel = () => {
           src={Laptop2}
           alt="Laptop image"
           priority
-        ></Image>
+        />
       </SwiperSlide>
       <SwiperSlide>
         <Image
@@ -86,7 +86,7 @@ export const HeroCarousel = () => {
           src={Laptop3}
           alt="Laptop image"
           priority
-        ></Image>
+        />
       </SwiperSlide>
     </Swiper>
   );
