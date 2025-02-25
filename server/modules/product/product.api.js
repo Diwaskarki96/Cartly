@@ -181,4 +181,44 @@ router.get("/featured", async (req, res, next) => {
     next(error);
   }
 });
+//TODO validation for category---------
+//--------browse by category----------
+router.get(
+  "/category/:category",
+  // async (req, res, next) => {
+  //   try {
+  //     // const authorization = req?.headers?.authorization;
+  //     // const token = authorization?.split(" ")[1];
+  //     // if (!token) throw new Error("Unauthorized");
+  //     // const payload = jwt.verify(token, process.env.JWT_SECRET);
+  //     // const user = await userModel.findOne({ email: payload.email });
+  //     // if (!user) throw new Error("Unauthorized");
+  //     // const role = user.role;
+  //     // if (role !== "user")
+  //     //   throw new Error("Only verified user can access this.");
+  //     // next();
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // },
+  async (req, res, next) => {
+    try {
+      const { category } = req.params;
+      if (!category) throw new Error("Category not found");
+      const productCategory = await productModel.find({ category });
+      res.json({ result: "success", data: productCategory });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+//-----------only shows the category------
+router.get("/category", async (req, res, next) => {
+  try {
+    const allCategory = await productModel.distinct("category");
+    res.json({ msg: "Success", data: allCategory });
+  } catch (error) {
+    next(error);
+  }
+});
 export default router;
