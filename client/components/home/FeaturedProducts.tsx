@@ -20,16 +20,19 @@ const FeaturedProducts = () => {
   }
   return (
     <div className="flex flex-col">
-      <div className="flex mt-7 mb-7 items-center ">
+      <div className="flex  mt-7 mb-7 items-center ">
         <div className="w-[20px] h-[40px] rounded bg-[#E4335A]"></div>
-        <p className=" text-left text-[#E4335A] ml-6 text-xl font-bold">
+        <p className=" text-left text-[#E4335A] ml-4 text-base font-bold">
           Featured Products
         </p>
       </div>
-      <div className="flex justify-center">
-        <div className="flex flex-wrap gap-3 ">
+      <p className="text-2xl font-bold mb-7 text-muted-foreground">
+        Featured Products
+      </p>
+      <div className="flex ">
+        <div className="grid grid-cols-[repeat(2,auto)] sm:grid-cols-[repeat(3,auto)] md:grid-cols-[repeat(4,auto)] lg:grid-cols-[repeat(5,auto)] gap-6 ">
           {featuredProducts && featuredProducts.length > 0 ? (
-            featuredProducts.slice(0, 4).map((featuredProduct) => {
+            featuredProducts.map((featuredProduct) => {
               return (
                 <ProductCard key={featuredProduct._id} {...featuredProduct} />
               );

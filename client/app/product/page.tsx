@@ -19,13 +19,16 @@ const ProductPage = () => {
     return <LoadingContainer />;
   }
   return (
-    <div className="">
-      <div className="my-8">
-        <Breadcrumbs />
+    <div>
+      <Breadcrumbs />
+      <div className="flex mt-7 mb-7 items-center ">
+        <div className="w-[20px] h-[40px] rounded bg-[#E4335A]"></div>
+        <p className=" text-left text-[#E4335A] ml-6  text-2xl font-bold">
+          Products
+        </p>
       </div>
-      <h1 className="text-2xl mb-6 mt-4">Products</h1>
 
-      <div className="flex justify-center flex-wrap gap-4 ">
+      <div className="grid grid-cols-[repeat(2,auto)] sm:grid-cols-[repeat(3,auto)] md:grid-cols-[repeat(4,auto)] lg:grid-cols-[repeat(5,auto)] gap-6  ">
         {products && products.length > 0 ? (
           products.map((product) => {
             return <ProductCard key={product._id} {...product} />;
