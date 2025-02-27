@@ -3,8 +3,15 @@ import React from "react";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { string } from "yup";
+interface ProductCardProps {
+  name: string;
+  price: number;
+  _id: number;
+  category: string;
+}
 
-const ProductCard = ({ name, price, _id, category }) => {
+const ProductCard = ({ name, price, _id, category }: ProductCardProps) => {
   const router = useRouter();
   return (
     <div className="flex gap-6 group cursor-pointer">
