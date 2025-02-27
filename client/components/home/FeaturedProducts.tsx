@@ -42,9 +42,9 @@ const FeaturedProducts = () => {
           )}
         </div>
       </div>
-      <Link href={"/product"} className="flex justify-center mt-6">
+      {/* <Link href={"/product"} className="flex justify-center mt-6">
         <Button size={"lg"}>View All Products</Button>
-      </Link>
+      </Link> */}
     </div>
   );
 };

@@ -3,14 +3,15 @@ import React from "react";
 
 const Links = () => {
   return (
-    <div className="w-[300px] hidden md:block lg:w-[400px]">
+    //TODO: see something about width
+    <div className="w-[300px] hidden md:block lg:w-[300px]">
       <ul className="flex  h-full justify-between text-muted-foreground items-center">
         <Link href="/">
           <li>Home</li>
         </Link>
-        <Link href="/product">
+        {/* <Link href="/product">
           <li>Product</li>
-        </Link>
+        </Link> */}
         <Link href="contact">
           <li>Contact</li>
         </Link>

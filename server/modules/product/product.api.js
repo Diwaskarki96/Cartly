@@ -68,8 +68,15 @@ router.get(
 //------list all the products--------
 router.get("/allproducts", async (req, res, next) => {
   try {
-    const allProducts = await productModel.find();
-    res.json({ msg: "success", data: allProducts });
+    const { searchText } = req.query; // Use req.query for GET requests
+
+    let filter = {};
+    if (searchText) {
+      filter.name = { $regex: searchText, $options: "i" }; // Case-insensitive search
+    }
+
+    const products = await productModel.find(filter); // Apply search filter
+    res.json({ msg: "success", data: products });
   } catch (error) {
     next(error);
   }
