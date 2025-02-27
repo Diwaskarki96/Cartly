@@ -13,6 +13,9 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.6",
     "@mui/material": "^6.4.6",
+    "@tanstack/react-query-devtools": "^5.66.9",
+    "@tanstack/react-router": "^1.111.11",
+    "axios": "^1.8.1",
     "next": "15.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
