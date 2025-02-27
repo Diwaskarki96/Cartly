@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 const SearchBar = () => {
   const router = useRouter();
   const [searchText, setSearchText] = useState("");
-  useEffect(() => {
-    router.push(`/products?search=${searchText}`);
-  }, [searchText, router]);
+  // useEffect(() => {
+  //   router.push(`/products?search=${searchText}`);
+  // }, [searchText, router]);
   return (
     <div className="relative  ">
       <Input

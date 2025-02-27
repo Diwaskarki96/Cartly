@@ -19,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 240;
 
@@ -115,7 +116,11 @@ export default function SideNavBar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const router = useRouter();
+  const menuItems = [
+    { text: "Product", path: "/product" },
+    { text: "Category", path: "/category" },
+  ];
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -152,51 +157,29 @@ export default function SideNavBar() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {menuItems.map(({ text, path }, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
+                onClick={() => router.push(path)} // Navigate to respective page
                 sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
+                  { minHeight: 48, px: 2.5 },
                   open
-                    ? {
-                        justifyContent: "initial",
-                      }
-                    : {
-                        justifyContent: "center",
-                      },
+                    ? { justifyContent: "initial" }
+                    : { justifyContent: "center" },
                 ]}
               >
                 <ListItemIcon
                   sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: "center",
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: "auto",
-                        },
+                    { minWidth: 0, justifyContent: "center" },
+                    open ? { mr: 3 } : { mr: "auto" },
                   ]}
                 >
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
+
                 <ListItemText
                   primary={text}
-                  sx={[
-                    open
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
+                  sx={[open ? { opacity: 1 } : { opacity: 0 }]}
                 />
               </ListItemButton>
             </ListItem>
