@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import "./globals.css";
-import SideNavBar from "@/components/SideNavBar";
+import SideNavBar from "@/components/navbar/SideNavBar";
 import Container from "@/components/global/Container";
 import ProvidersWrapper from "./ProvidersWrapper";
 
@@ -19,8 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={jost.className}>
-        <SideNavBar />
         <ProvidersWrapper>
+          <SideNavBar />
           <Container>{children}</Container>
         </ProvidersWrapper>
       </body>
