@@ -27,14 +27,17 @@ const LoginPage = () => {
       return await $axios.post("/user/login", values);
     },
     onSuccess: (res) => {
-      showToast(res?.data.msg, "success");
+      const accessToken = res?.data?.token;
+      localStorage.setItem("accessToken", accessToken);
       router.push("/");
+      showToast(res?.data.msg, "success");
     },
     onError: (error) => {
       console.log(error);
       showToast(error?.response?.data?.msg || "Something went wrong", "error");
     },
   });
+
   return (
     <div className="w-[1305px] h-[781px] flex  ">
       <div className="w-[805px] h-[781px]">
@@ -68,7 +71,9 @@ const LoginPage = () => {
                     {...formik.getFieldProps("email")}
                   />
                   {formik.touched.email && formik.errors.email ? (
-                    <p>{formik.errors.email}</p>
+                    <p className="text-xs text-red-600">
+                      {formik.errors.email}
+                    </p>
                   ) : null}
                   <Input
                     type="password"
@@ -76,7 +81,9 @@ const LoginPage = () => {
                     {...formik.getFieldProps("password")}
                   />
                   {formik.touched.password && formik.errors.password ? (
-                    <p>{formik.errors.password}</p>
+                    <p className="text-xs text-red-600">
+                      {formik.errors.password}
+                    </p>
                   ) : null}
                   <Button className="w-full" type="submit" disabled={isPending}>
                     Create Account

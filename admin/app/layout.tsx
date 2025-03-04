@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={jost.className}>
         <ProvidersWrapper>
-          <SideNavBar />
+          {/* <SideNavBar /> */}
           <Container>{children}</Container>
         </ProvidersWrapper>
       </body>

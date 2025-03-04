@@ -101,7 +101,7 @@ const SigninPage = () => {
                   placeholder="Name"
                 />
                 {formik.touched.name && formik.errors.name ? (
-                  <p>{formik.errors.name}</p>
+                  <p className="text-xs text-red-600">{formik.errors.name}</p>
                 ) : null}
 
                 <Input
@@ -111,7 +111,7 @@ const SigninPage = () => {
                   placeholder="Email"
                 />
                 {formik.touched.email && formik.errors.email ? (
-                  <p>{formik.errors.email}</p>
+                  <p className="text-xs text-red-600">{formik.errors.email}</p>
                 ) : null}
                 <Input
                   className="dark:bg-muted"
@@ -120,7 +120,9 @@ const SigninPage = () => {
                   placeholder="Password"
                 />
                 {formik.touched.password && formik.errors.password ? (
-                  <p>{formik.errors.password}</p>
+                  <p className="text-xs text-red-600">
+                    {formik.errors.password}
+                  </p>
                 ) : null}
                 <Button type="submit" className="w-full" disabled={isPending}>
                   Create Account

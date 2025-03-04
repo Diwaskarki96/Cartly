@@ -12,7 +12,7 @@ export const signinValidation = yup.object({
     .trim(),
   password: yup
     .string()
-    .required("Name is required")
+    .required("Password is required")
     .min(3, "Password must be atleast 3 characters.")
     .max(15, "Password must be max 15 characters."),
   role: yup

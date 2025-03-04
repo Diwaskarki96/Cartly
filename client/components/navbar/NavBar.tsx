@@ -8,20 +8,30 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 import SideNavBar from "./SideNavBar";
 import { Sheet, SheetTrigger } from "../ui/sheet";
+import Link from "next/link";
+import LoginPopup from "../login/LoginModal";
 const NavBar = () => {
   const [nav, setNav] = useState<boolean>(false);
   const handleNav = () => {
     setNav(!nav);
   };
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
   return (
     <div className="h-[100px] w-full flex justify-center items-center border-b-[1.5px] px-4 ">
       <div className="h-[38px] w-[1170px] flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-muted-foreground">Cartly</h1>
+        <Link href="/">
+          <h1 className="text-2xl font-bold text-muted-foreground">Cartly</h1>
+        </Link>
         <Links />
         <div className="flex  ml-2 gap-3 items-center md:justify-between">
           <SearchBar />
           <DarkMode />
-          <Cart />
+          <Cart openLoginPopup={() => setShowLoginPopup(true)} />
+
+          {/* Login Popup Component */}
+          {showLoginPopup && (
+            <LoginPopup onClose={() => setShowLoginPopup(false)} />
+          )}
           <Sheet>
             <SheetTrigger className="md:hidden" onClick={handleNav}>
               {nav ? <RxCross1 size={25} /> : <GiHamburgerMenu size={25} />}

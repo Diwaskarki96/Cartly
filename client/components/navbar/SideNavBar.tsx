@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 
@@ -9,6 +10,7 @@ const SideNavBar = ({
   setNav: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [nav, setnav] = useState(true);
+  const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
   //   const handleNav = () => {
   //     setnav(!nav);
@@ -23,9 +25,11 @@ const SideNavBar = ({
     >
       <div className=" w-[60%] h-full bg-[#F8F8F8] flex flex-col pl-5 py-10">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-muted-foreground p-4">
-            Cartly
-          </h1>
+          <Link href="/">
+            <h1 className="text-3xl font-bold text-muted-foreground p-4 cursor-pointer">
+              Cartly
+            </h1>
+          </Link>
           <div
             className="pr-6"
             onClick={() => {
