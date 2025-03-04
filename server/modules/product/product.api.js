@@ -15,14 +15,14 @@ router.post(
   "/add",
   async (req, res, next) => {
     try {
-      const authorization = req?.headers?.authorization;
-      const token = authorization?.split(" ")[1];
-      if (!token) throw new Error("No token found");
-      const payload = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await userModel.findOne({ email: payload.email });
-      if (!user) throw new Error("Unauthorized");
-      const role = user.role;
-      if (role !== "admin") throw new Error("Only admin can add products");
+      // const authorization = req?.headers?.authorization;
+      // const token = authorization?.split(" ")[1];
+      // if (!token) throw new Error("No token found");
+      // const payload = jwt.verify(token, process.env.JWT_SECRET);
+      // const user = await userModel.findOne({ email: payload.email });
+      // if (!user) throw new Error("Unauthorized");
+      // const role = user.role;
+      // if (role !== "admin") throw new Error("Only admin can add products");
       next();
     } catch (error) {
       next(error);

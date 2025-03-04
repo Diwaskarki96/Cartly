@@ -24,11 +24,11 @@ const productSchema = new mongoose.Schema(
     },
     price: { type: Number, required: true, min: 1 },
     quantity: { type: Number, required: true, min: 1 },
-    color: {
-      type: [String],
-      required: true,
-      enum: ["red", "blue", "green", "black", "white", "yellow"],
-    },
+    // color: {
+    //   type: [String],
+    //   required: true,
+    //   enum: ["red", "blue", "green", "black", "white", "yellow"],
+    // },
     size: { type: String, required: false, enum: ["xs", "s", "m", "l", "xl"] },
     freeShipping: { type: Boolean, default: false },
     isStock: { type: Boolean, required: true, default: true },

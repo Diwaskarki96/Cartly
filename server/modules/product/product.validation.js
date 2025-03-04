@@ -21,24 +21,23 @@ export const productValidation = yup.object({
     .number()
     .required("Quantity is required")
     .min(1, "Quantity must be at least 1."),
-  color: yup
-    .array()
-    .of(
-      yup
-        .string()
-        .oneOf(
-          ["red", "blue", "green", "black", "white", "yellow"],
-          "Invalid color"
-        )
-    )
-    .required("Color is required"),
+  // color: yup
+  //   .array()
+  //   .of(
+  //     yup
+  //       .string()
+  //       .oneOf(
+  //         ["red", "blue", "green", "black", "white", "yellow"],
+  //         "Invalid color"
+  //       )
+  //   )
+  //   .required("Color is required"),
   size: yup.string().trim().oneOf(["xs", "s", "m", "l", "xl"], "Invalid size"),
   isStock: yup.boolean().required("Stock status is required").default(true),
   category: yup
     .string()
     .required("Category is required")
     .trim()
-    .lowercase()
     .oneOf([
       "smartphone",
       "computer",

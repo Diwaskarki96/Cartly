@@ -221,12 +221,80 @@ router.get(
   async (req, res, next) => {
     try {
       const buyerId = req.buyerId;
-      const cartItems = await cartModel.find({ buyerId: buyerId });
+      const cartItems = await cartModel.aggregate([
+        {
+          $match: { buyerId: buyerId },
+        },
+        {
+          $lookup: {
+            from: "products",
+            localField: "productId",
+            foreignField: "_id",
+            as: "productDetails",
+          },
+        },
+        {
+          $project: {
+            name: { $first: "$productDetails.name" },
+            unitPrice: { $first: "$productDetails.price" },
+            catergory: { $first: "$productDetails.category" },
+            image: { $first: "$productDetails.image" },
+            orderQuantity: 1,
+            productId: 1,
+          },
+        },
+        {
+          $project: {
+            name: 1,
+            unitPrice: 1,
+            catergory: 1,
+            image: 1,
+            orderQuantity: 1,
+            productId: 1,
+            subTotal: { $multiply: ["$unitPrice", "$orderQuantity"] },
+          },
+        },
+      ]);
+      // let grandTotal = 0;
+      // cartItems.forEach((cart) => {
+      //   allProductSubTotal = allProductSubTotal + cart.subTotal;
+      // });
+      // grandTotal = allProductSubTotal;
       res.json({ msg: "Success", data: cartItems });
     } catch (error) {
       next(error);
     }
   }
 );
-//TODO: cart item count
+router.get(
+  "/cartCount",
+  async (req, res, next) => {
+    try {
+      const authorization = req?.headers?.authorization;
+      const token = authorization?.split(" ")[1];
+      if (!token) throw new Error("Unauthorized");
+      const payload = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userModel.findOne({ email: payload.email });
+      if (!user) throw new Error("Unauthorized");
+      const role = user.role;
+      if (role !== "user") throw new Error("Only user ca access this");
+      req.buyerId = user._id;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  async (req, res, next) => {
+    try {
+      const loggedInUserId = req.buyerId;
+      const cartCount = await cartModel
+        .find({ buyerId: loggedInUserId })
+        .countDocuments();
+      return res.json({ msg: "success", data: cartCount });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+//TODO: cart item count, pagination, discount, total
 export default router;
