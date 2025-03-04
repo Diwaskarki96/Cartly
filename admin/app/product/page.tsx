@@ -1,8 +1,11 @@
+"use client";
 import ProductTable from "@/components/product/ProductTable";
 import { Box, Button, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const ProductPage = () => {
+  const router = useRouter();
   return (
     <Box>
       <Box className="mb-10 w-full flex justify-between items-center">
@@ -12,7 +15,11 @@ const ProductPage = () => {
           </Typography>
           <Box>Breadcrumbs</Box>
         </Box>
-        <Button sx={{ height: "40px" }} variant="contained">
+        <Button
+          sx={{ height: "40px" }}
+          variant="contained"
+          onClick={() => router.push("/product/create")}
+        >
           New Product
         </Button>
       </Box>

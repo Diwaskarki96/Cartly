@@ -23,7 +23,8 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useQuery } from "@tanstack/react-query";
 import { $axios } from "@/axios/axiosInstance";
-
+import { Chip } from "@mui/material";
+import Image from "next/image";
 interface Data {
   id: number;
   calories: number;
@@ -152,7 +153,13 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={
+              headCell.id === "carbs"
+                ? "center"
+                : headCell.numeric
+                  ? "right"
+                  : "left"
+            }
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -295,8 +302,8 @@ export default function ProductTable() {
     },
   });
 
-  const rows = data?.data || [];
-
+  const rows = data?.data?.data || [];
+  console.log({ rows });
   const visibleRows = React.useMemo(
     () =>
       rows.length
@@ -354,12 +361,34 @@ export default function ProductTable() {
                       scope="row"
                       padding="none"
                     >
-                      {row.name}
+                      <div className="flex items-center gap-4">
+                        {/* <Image
+                          src={row?.productImage} // Make sure row.image contains a valid image URL
+                          alt={row.name}
+                          width={40} // Adjust size as needed
+                          height={40}
+                          style={{ borderRadius: "5px" }}
+                          priority
+                        /> */}
+                        <img
+                          className="h-[60px]"
+                          src={row?.productImage}
+                          alt=""
+                        />
+                        {row.name}
+                      </div>
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
+                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.category}</TableCell>
+                    <TableCell align="center">
+                      <Chip
+                        label={row.isStock ? "In Stock" : "Not in Stock"}
+                        color={row.isStock ? "success" : "error"}
+                      />
+                    </TableCell>
+                    <TableCell align="right">
+                      <DeleteIcon />
+                    </TableCell>
                   </TableRow>
                 );
               })}
