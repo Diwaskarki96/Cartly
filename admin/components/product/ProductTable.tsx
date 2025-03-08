@@ -23,8 +23,9 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useQuery } from "@tanstack/react-query";
 import { $axios } from "@/axios/axiosInstance";
-import { Chip } from "@mui/material";
+import { Button, Chip } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 interface Data {
   id: number;
   calories: number;
@@ -220,7 +221,7 @@ function ProductList(props: EnhancedTableToolbarProps) {
           id="tableTitle"
           component="div"
         >
-          Products
+          Nutrition
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -246,6 +247,7 @@ export default function ProductTable() {
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const router = useRouter();
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -303,7 +305,6 @@ export default function ProductTable() {
   });
 
   const rows = data?.data?.data || [];
-  console.log({ rows });
   const visibleRows = React.useMemo(
     () =>
       rows.length
@@ -338,7 +339,7 @@ export default function ProductTable() {
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    // onClick={(event) => handleClick(event, row.id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -361,7 +362,9 @@ export default function ProductTable() {
                       scope="row"
                       padding="none"
                     >
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-4" onClick={()=>{
+                         
+                      }}>
                         {/* <Image
                           src={row?.productImage} // Make sure row.image contains a valid image URL
                           alt={row.name}
@@ -387,7 +390,9 @@ export default function ProductTable() {
                       />
                     </TableCell>
                     <TableCell align="right">
-                      <DeleteIcon />
+                      <div onClick={() => console.log("hi")}>
+                        <DeleteIcon />
+                      </div>
                     </TableCell>
                   </TableRow>
                 );

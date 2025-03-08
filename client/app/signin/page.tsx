@@ -80,7 +80,12 @@ const SigninPage = () => {
       <div className=" m-auto ">
         {isPending && <p>Loading...</p>}
         <Formik
-          initialValues={{ email: "", password: "", name: "" }}
+          initialValues={{
+            email: "",
+            password: "",
+            firstName: "",
+            lastName: "",
+          }}
           validationSchema={signinValidation}
           onSubmit={(values) => {
             mutate(values);
@@ -90,41 +95,58 @@ const SigninPage = () => {
             return (
               <form
                 onSubmit={formik.handleSubmit}
-                className="h-[530px] w-[371px] flex flex-col gap-10"
+                className="h-[530px] w-[371px] flex flex-col "
               >
-                <h1 className="font-bold text-xl">Create an Account</h1>
-                <h1>Enter your details</h1>
+                <h1 className="font-bold text-xl  mb-6">Create an Account</h1>
+                <h1 className=" mb-6">Enter your details</h1>
                 <Input
-                  className="dark:bg-muted"
-                  {...formik.getFieldProps("name")}
+                  className="dark:bg-muted mb-6"
+                  {...formik.getFieldProps("firstName")}
                   type="text"
-                  placeholder="Name"
+                  placeholder="First Name"
                 />
-                {formik.touched.name && formik.errors.name ? (
-                  <p className="text-xs text-red-600">{formik.errors.name}</p>
+                {formik.touched.firstName && formik.errors.firstName ? (
+                  <p className="text-xs text-red-600">
+                    {formik.errors.firstName}
+                  </p>
+                ) : null}
+                <Input
+                  className="dark:bg-muted  mb-6"
+                  {...formik.getFieldProps("lastName")}
+                  type="text"
+                  placeholder="Last Name"
+                />
+                {formik.touched.lastName && formik.errors.lastName ? (
+                  <p className="text-xs text-red-600">
+                    {formik.errors.lastName}
+                  </p>
                 ) : null}
 
                 <Input
-                  className="dark:bg-muted"
+                  className="dark:bg-muted  mb-6"
                   {...formik.getFieldProps("email")}
                   type="email"
                   placeholder="Email"
                 />
                 {formik.touched.email && formik.errors.email ? (
-                  <p className="text-xs text-red-600">{formik.errors.email}</p>
+                  <p className="text-xs text-red-600 ">{formik.errors.email}</p>
                 ) : null}
                 <Input
-                  className="dark:bg-muted"
+                  className="dark:bg-muted  mb-6 "
                   {...formik.getFieldProps("password")}
                   type="password"
                   placeholder="Password"
                 />
                 {formik.touched.password && formik.errors.password ? (
-                  <p className="text-xs text-red-600">
+                  <p className="text-xs text-red-600 ">
                     {formik.errors.password}
                   </p>
                 ) : null}
-                <Button type="submit" className="w-full" disabled={isPending}>
+                <Button
+                  type="submit"
+                  className="w-full  mb-6"
+                  disabled={isPending}
+                >
                   Create Account
                 </Button>
                 <h1 className="text-center">

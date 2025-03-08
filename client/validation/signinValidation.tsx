@@ -1,10 +1,15 @@
 import * as yup from "yup";
 export const signinValidation = yup.object({
-  name: yup
+  firstName: yup
     .string()
-    .required("Name is required")
-    .min(3, "Name must be atleast 3 characters.")
-    .max(15, "Name must be max 15 characters."),
+    .required("First name is required")
+    .min(3, "First name must be atleast 3 characters.")
+    .max(15, "First name must be max 15 characters."),
+  lastName: yup
+    .string()
+    .required("Last name is required")
+    .min(3, "Last name must be atleast 3 characters.")
+    .max(15, "Last name must be max 15 characters."),
   email: yup
     .string()
     .required("Email is required")

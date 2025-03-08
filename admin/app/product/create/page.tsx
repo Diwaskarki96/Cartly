@@ -21,21 +21,22 @@ import {
 import { Formik } from "formik";
 import React from "react";
 import { productCategories } from "@/constant";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const CreateProductPage = () => {
+  const router = useRouter();
   const { isPending, mutate } = useMutation({
     mutationKey: ["add-product"],
     mutationFn: async (values) => {
       return await $axios.post("/product/add", values);
     },
     onSuccess: (res) => {
-      console.log("Product added successfully:", res.data);
+      router.push("/product");
+      toast.success(res?.data?.msg);
     },
     onError: (error) => {
-      console.error(
-        "Error adding product:",
-        error.response?.data || error.message
-      );
+      toast.error(error?.response?.data);
     },
   });
   return (

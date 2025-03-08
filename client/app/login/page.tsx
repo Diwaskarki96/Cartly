@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { loginValidation } from "@/validation/loginValidationSchema";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +14,7 @@ import React from "react";
 const LoginPage = () => {
   const router = useRouter();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const showToast = (msg: string, type: "success" | "error") => {
     toast({
       description: msg,
@@ -28,9 +29,13 @@ const LoginPage = () => {
     },
     onSuccess: (res) => {
       const accessToken = res?.data?.token;
+      const userID = res?.data?.data?._id;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userID", userID);
       router.push("/");
+      queryClient.invalidateQueries(["get-user-details"]);
       showToast(res?.data.msg, "success");
+      queryClient.invalidateQueries(["get-cart-item-list"]);
     },
     onError: (error) => {
       console.log(error);

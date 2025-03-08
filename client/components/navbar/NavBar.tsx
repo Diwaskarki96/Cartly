@@ -10,11 +10,13 @@ import SideNavBar from "./SideNavBar";
 import { Sheet, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import LoginPopup from "../login/LoginModal";
+import Profile from "./Profile";
 const NavBar = () => {
   const [nav, setNav] = useState<boolean>(false);
   const handleNav = () => {
     setNav(!nav);
   };
+  const isLoggedIn = localStorage.getItem("accessToken");
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   return (
     <div className="h-[100px] w-full flex justify-center items-center border-b-[1.5px] px-4 ">
@@ -27,7 +29,7 @@ const NavBar = () => {
           <SearchBar />
           <DarkMode />
           <Cart openLoginPopup={() => setShowLoginPopup(true)} />
-
+          {isLoggedIn && <Profile />}
           {/* Login Popup Component */}
           {showLoginPopup && (
             <LoginPopup onClose={() => setShowLoginPopup(false)} />

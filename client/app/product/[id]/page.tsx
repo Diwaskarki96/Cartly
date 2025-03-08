@@ -17,6 +17,7 @@ import { FaRecycle } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 const ProductDetailPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -66,7 +67,15 @@ const ProductDetailPage = () => {
     <div>
       <Breadcrumbs />
       <div className="w-full flex mt-6 ">
-        <div className="w-3/5">image</div>
+        <div className="w-3/5">
+          <Image
+            width={300}
+            height={300}
+            src={productDetails?.productImage}
+            alt="Product Image"
+            priority
+          />
+        </div>
         <div className="w-2/5">
           <div className="w-full flex gap-4 ">
             <div className="w-full flex flex-col gap-4">

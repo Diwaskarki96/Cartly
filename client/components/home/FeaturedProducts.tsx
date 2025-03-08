@@ -32,7 +32,7 @@ const FeaturedProducts = () => {
       <div className="flex ">
         <div className="grid grid-cols-[repeat(2,auto)] sm:grid-cols-[repeat(3,auto)] md:grid-cols-[repeat(4,auto)] lg:grid-cols-[repeat(5,auto)] gap-6 ">
           {featuredProducts && featuredProducts.length > 0 ? (
-            featuredProducts.map((featuredProduct) => {
+            featuredProducts.slice(0, 5).map((featuredProduct) => {
               return (
                 <ProductCard key={featuredProduct._id} {...featuredProduct} />
               );

@@ -7,6 +7,9 @@ import { Jost } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import ProvidersWrapper from "./ProvidersWrapper";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "@/components/global/AuthContext";
 const inter = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,13 +27,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <ProvidersWrapper>
-            <NavBar />
-            <Container>{children}</Container>
-            <Footer />
-          </ProvidersWrapper>
-        </Providers>
+        <AuthProvider>
+          <Providers>
+            <ProvidersWrapper>
+              <NavBar />
+              <Container>
+                {children}
+                <ToastContainer position="top-right" autoClose={3000} />
+              </Container>
+              <Footer />
+            </ProvidersWrapper>
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );
