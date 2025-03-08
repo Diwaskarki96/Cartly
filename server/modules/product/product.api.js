@@ -75,7 +75,7 @@ router.get("/allproducts", async (req, res, next) => {
       filter.name = { $regex: searchText, $options: "i" }; // Case-insensitive search
     }
 
-    const products = await productModel.find(filter); // Apply search filter
+    const products = await productModel.find(filter).sort({ createdAt: -1 }); // Apply search filter
     res.json({ msg: "success", data: products });
   } catch (error) {
     next(error);

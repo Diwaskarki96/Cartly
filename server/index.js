@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import userRouter from "./modules/user/user.api.js";
+import adminRouter from "./modules/admin/admin.api.js";
 import productRouter from "./modules/product/product.api.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import cartRouter from "./modules/cart/cart.api.js";
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
   res.json({ msg: "Api is working" });
 });
 app.use("/user", userRouter);
+app.use("/admin", adminRouter);
 app.use("/product", productRouter);
 app.use("/cart", cartRouter);
 app.use(errorHandler);

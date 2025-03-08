@@ -52,4 +52,10 @@ export const productValidation = yup.object({
     .boolean()
     .required("Shipping status is required.")
     .default(true),
+  productImage: yup
+    .string()
+    .required("Image is required")
+    .default(
+      "https://imgs.search.brave.com/yeOvOjjaYfOU4TUMqxEPho3FhjeZkfUxVHBkCcAQt-g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9ianMu/c2NlbmU3LmNvbS9p/cy9pbWFnZS9ianMv/MzMyNjExPyRianMt/SW5pdGlhbDYwMCQ.jpeg"
+    ),
 });
