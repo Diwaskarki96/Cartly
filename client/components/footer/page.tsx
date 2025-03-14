@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="w-full py-[clamp(50px,10vw,100px)] bg-black dark:bg-[#37474F] flex justify-center text-sm">
+    <div className="w-full py-[clamp(50px,10vw,100px)] bg-[#e74a4a] flex justify-center text-sm">
       <div className="text-white dark:text-[#e0e0e0] w-full max-w-[1170px] px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.2fr,0.8fr,0.5fr] gap-[clamp(20px,5vw,40px)]">
         <div className="flex flex-col md:flex-row justify-between gap-[clamp(20px,5vw,40px)] lg:col-span-1">
           <ul>

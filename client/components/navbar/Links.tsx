@@ -13,9 +13,9 @@ const Links = () => {
         <Link href="/">
           <li>Home</li>
         </Link>
-        {/* <Link href="/product">
+        <Link href="/product">
           <li>Product</li>
-        </Link> */}
+        </Link>
         <Link href="contact">
           <li>Contact</li>
         </Link>

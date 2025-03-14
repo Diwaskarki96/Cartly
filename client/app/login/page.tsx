@@ -4,24 +4,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { loginValidation } from "@/validation/loginValidationSchema";
+import { LinearProgress } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { FaArrowRight } from "react-icons/fa"; // Import the icon
 
 const LoginPage = () => {
   const router = useRouter();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
   const showToast = (msg: string, type: "success" | "error") => {
     toast({
       description: msg,
       variant: type === "success" ? "default" : "destructive",
-      // variant: type, // Assuming your toast component supports a variant prop
     });
   };
+
   const { isPending, mutate } = useMutation({
     mutationKey: ["login"],
     mutationFn: async (values) => {
@@ -44,7 +47,7 @@ const LoginPage = () => {
   });
 
   return (
-    <div className="w-[1305px] h-[781px] flex  ">
+    <div className="w-[1305px] h-[781px] flex">
       <div className="w-[805px] h-[781px]">
         <Image
           src="/images/login.png"
@@ -52,11 +55,10 @@ const LoginPage = () => {
           height={681}
           width={705}
           priority
-          // className="h-[600px] w-[800px]"
         />
       </div>
-      <div className=" m-auto ">
-        {isPending && <p>Loading...</p>}
+      <div className="m-auto">
+        {isPending && <LinearProgress />}
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={loginValidation}
@@ -68,8 +70,8 @@ const LoginPage = () => {
             return (
               <form onSubmit={formik.handleSubmit}>
                 <div className="h-[530px] w-[371px] flex flex-col gap-10">
-                  <h1 className="font-bold text-xl ">Log in to Exclusive</h1>
-                  <h1 className="">Enter your details</h1>
+                  <h1 className="font-bold text-xl">Log in to Exclusive</h1>
+                  <h1>Enter your details</h1>
                   <Input
                     type="email"
                     placeholder="Email"
@@ -90,11 +92,19 @@ const LoginPage = () => {
                       {formik.errors.password}
                     </p>
                   ) : null}
-                  <Button className="w-full" type="submit" disabled={isPending}>
-                    Create Account
-                  </Button>
+                  {/* Wrap Button in a group */}
+                  <div className="group">
+                    <Button
+                      className="w-full relative bg-gradient-to-r from-[#ff416c] to-[#ff4b2b] text-white hover:bg-gradient-to-r hover:from-[#ff4b2b] hover:to-[#ff416c] transition-all duration-300 flex items-center justify-center gap-2"
+                      type="submit"
+                      disabled={isPending}
+                    >
+                      Create Account
+                      <FaArrowRight className="opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" />
+                    </Button>
+                  </div>
                   <h1 className="text-center">
-                    Already have account?
+                    Already have an account?
                     <Link href="/signin">
                       <span className="underline ml-1">Sign in</span>
                     </Link>

@@ -17,13 +17,13 @@ const SideNavBar = ({
   //   };
   return (
     <div
-      className=" lg:hidden"
+      className=" lg:hidden "
       ref={modalRef}
       onClick={() => {
         setNav(false);
       }}
     >
-      <div className=" w-[60%] h-full bg-[#F8F8F8] flex flex-col pl-5 py-10">
+      <div className=" w-[60%] h-full bg-[#F8F8F8] flex flex-col pl-5 py-10 z-[1000]">
         <div className="flex items-center justify-between">
           <Link href="/">
             <h1 className="text-3xl font-bold text-muted-foreground p-4 cursor-pointer">

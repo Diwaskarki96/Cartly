@@ -38,6 +38,7 @@ import { useMutation } from "@tanstack/react-query";
 import { $axios } from "@/axios/axiosInstance";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { LinearProgress } from "@mui/material";
 const SigninPage = () => {
   const { toast } = useToast();
   const showToast = (msg: string, type: "success" | "error") => {
@@ -78,7 +79,7 @@ const SigninPage = () => {
         />
       </div>
       <div className=" m-auto ">
-        {isPending && <p>Loading...</p>}
+        {isPending && <LinearProgress />}
         <Formik
           initialValues={{
             email: "",

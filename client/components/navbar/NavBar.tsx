@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cart from "./Cart";
 import { DarkMode } from "./DarkMode";
 import Links from "./Links";
@@ -16,13 +16,17 @@ const NavBar = () => {
   const handleNav = () => {
     setNav(!nav);
   };
-  const isLoggedIn = localStorage.getItem("accessToken");
+  const [isLoggedIn, setIsLoggedIn] = useState<string | null>(null);
+  useEffect(() => {
+    // Ensure this runs only on the client
+    setIsLoggedIn(localStorage.getItem("accessToken"));
+  }, []);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   return (
     <div className="h-[100px] w-full flex justify-center items-center border-b-[1.5px] px-4 ">
       <div className="h-[38px] w-[1170px] flex justify-between items-center">
         <Link href="/">
-          <h1 className="text-2xl font-bold text-muted-foreground">Cartly</h1>
+          <h1 className="text-3xl text-[#e74a4a] font-bold ">Cartly</h1>
         </Link>
         <Links />
         <div className="flex  ml-2 gap-3 items-center md:justify-between">

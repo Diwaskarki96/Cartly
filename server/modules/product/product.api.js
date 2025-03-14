@@ -74,7 +74,22 @@ router.get("/allproducts", async (req, res, next) => {
     if (searchText) {
       filter.name = { $regex: searchText, $options: "i" }; // Case-insensitive search
     }
+    const product = await productModel.aggregate([
+      { $match: match },
 
+      {
+        $project: {
+          name: 1,
+          brand: 1,
+          price: 1,
+          category: 1,
+          freeShipping: 1,
+          description: { $substr: ["$description", 0, 200] },
+          availableQuantity: 1,
+          image: 1,
+        },
+      },
+    ]);
     const products = await productModel.find(filter).sort({ createdAt: -1 }); // Apply search filter
     res.json({ msg: "success", data: products });
   } catch (error) {
