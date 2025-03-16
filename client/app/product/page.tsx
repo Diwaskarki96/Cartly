@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 import { $axios } from "@/axios/axiosInstance";
 import Breadcrumbs from "@/components/global/Breadcrumbs";
 import LoadingContainer from "@/components/global/LoadingContainer";

@@ -40,11 +40,11 @@ const CreateProductPage = () => {
     },
   });
   return (
-    <Box>
+    <Box className="">
       <Typography className="text-2xl" variant="h4">
         Add Products
       </Typography>
-      <Box>
+      <Box className="w-full">
         <Formik
           initialValues={{
             image: null,
@@ -98,7 +98,7 @@ const CreateProductPage = () => {
                 alignItems: "center",
                 padding: "1rem",
                 gap: "1rem",
-                width: "50%",
+                width: "100%",
                 boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
               }}
             >
