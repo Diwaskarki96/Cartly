@@ -15,8 +15,11 @@ export default function ClientLayout({
 
   return (
     <ProvidersWrapper>
-      {!isLoginPage && <SideNavBar />} {/* Conditionally render SideNavBar */}
-      <Container>{children}</Container>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {/* Ensure SideNavBar and content are in flex */}
+        {!isLoginPage && <SideNavBar />}
+        <Container>{children}</Container>
+      </div>
     </ProvidersWrapper>
   );
 }

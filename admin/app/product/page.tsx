@@ -1,4 +1,5 @@
 "use client";
+import CustomBreadcrumbs from "@/components/global/Breadcrumbs";
 import ProductTable from "@/components/product/ProductTable";
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -13,7 +14,7 @@ const ProductPage = () => {
           <Typography variant="h4" sx={{ mb: "20px" }}>
             Product
           </Typography>
-          <Box>Breadcrumbs</Box>
+          <CustomBreadcrumbs />
         </Box>
         <Button
           sx={{ height: "40px" }}
