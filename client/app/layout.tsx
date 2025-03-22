@@ -10,6 +10,7 @@ import ProvidersWrapper from "./ProvidersWrapper";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "@/components/global/AuthContext";
+import { SessionProvider } from "next-auth/react";
 const inter = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

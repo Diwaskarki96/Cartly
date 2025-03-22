@@ -75,7 +75,7 @@ router.get("/allproducts", async (req, res, next) => {
       filter.name = { $regex: searchText, $options: "i" }; // Case-insensitive search
     }
     const product = await productModel.aggregate([
-      { $match: match },
+      // { $match: match },
 
       {
         $project: {
@@ -241,6 +241,28 @@ router.get("/category", async (req, res, next) => {
     res.json({ msg: "Success", data: allCategory });
   } catch (error) {
     next(error);
+  }
+});
+// Search API for products
+router.get("/search", async (req, res, next) => {
+  try {
+    const { searchText } = req.query; // Extract search query from request
+
+    let filter = {};
+    if (searchText) {
+      filter = {
+        $or: [
+          { name: { $regex: searchText, $options: "i" } }, // Case-insensitive search by name
+          { brand: { $regex: searchText, $options: "i" } }, // Case-insensitive search by brand
+          { category: { $regex: searchText, $options: "i" } }, // Case-insensitive search by category
+        ],
+      };
+    }
+
+    const products = await productModel.find(filter).sort({ createdAt: -1 }); // Fetch and sort products
+    res.json({ msg: "success", data: products }); // Return success response
+  } catch (error) {
+    next(error); // Handle errors
   }
 });
 export default router;

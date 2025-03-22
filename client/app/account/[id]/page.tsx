@@ -7,8 +7,8 @@ import {
   changePasswordValidation,
   editProfileValidation,
 } from "@/validation/editProfileValidationSchema";
-import { LinearProgress } from "@mui/material";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { FormHelperText, LinearProgress } from "@mui/material";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useParams } from "next/navigation";
 import React from "react";
@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 const AccountPage = () => {
   const param = useParams();
   const userID = param.id;
+  const queryClient = useQueryClient();
   const { isPending: getUserDetailPending, data } = useQuery({
     queryKey: ["get-user-details"],
     queryFn: () => {
@@ -30,6 +31,7 @@ const AccountPage = () => {
         return $axios.put(`/user/editProfile/${userID}`, values);
       },
       onSuccess: (res) => {
+        queryClient.invalidateQueries(["get-user-details"]);
         toast.success(res?.data?.message);
       },
       onError: (error) => {
@@ -82,7 +84,7 @@ const AccountPage = () => {
 
                   <h1 className="text-base">
                     Welcome!
-                    <span className="text-red-600 capitalize">
+                    <span className="text-red-600 capitalize ml-1">
                       {userDetails?.firstName} {userDetails?.lastName}
                     </span>
                   </h1>
@@ -95,6 +97,11 @@ const AccountPage = () => {
                       className="capitalize"
                       {...formik.getFieldProps("firstName")}
                     />
+                    {formik.touched.firstName && formik.errors.firstName ? (
+                      <FormHelperText error>
+                        {formik.errors.firstName}
+                      </FormHelperText>
+                    ) : null}
                   </div>
                   <div className="w-full">
                     <p>Last Name</p>
@@ -104,6 +111,11 @@ const AccountPage = () => {
                       className="capitalize"
                       {...formik.getFieldProps("lastName")}
                     />
+                    {formik.touched.lastName && formik.errors.lastName ? (
+                      <FormHelperText error>
+                        {formik.errors.lastName}
+                      </FormHelperText>
+                    ) : null}
                   </div>
                 </div>
                 <div className="flex justify-items-end w-full mt-3">
@@ -132,14 +144,24 @@ const AccountPage = () => {
                     type="password"
                     {...formik.getFieldProps("oldPassword")}
                     placeholder="Current Password"
-                    className="mt-5"
+                    className="mt-5 w-[50%]"
                   />
+                  {formik.touched.oldPassword && formik.errors.oldPassword ? (
+                    <FormHelperText error>
+                      {formik.errors.oldPassword}
+                    </FormHelperText>
+                  ) : null}
                   <Input
                     type="password"
                     {...formik.getFieldProps("newPassword")}
                     placeholder="New Password"
-                    className="mt-5"
+                    className="mt-5 w-[50%]"
                   />
+                  {formik.touched.newPassword && formik.errors.newPassword ? (
+                    <FormHelperText error>
+                      {formik.errors.newPassword}
+                    </FormHelperText>
+                  ) : null}
                   {/* <Input
           type="password"
           placeholder="Confirm New Password"
