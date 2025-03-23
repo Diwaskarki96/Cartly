@@ -10,7 +10,7 @@ import ProvidersWrapper from "./ProvidersWrapper";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "@/components/global/AuthContext";
-import { SessionProvider } from "next-auth/react";
+import SessionWrapper from "./SessionWrapper";
 const inter = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,18 +28,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <Providers>
-            <ProvidersWrapper>
-              <NavBar />
-              <Container>
-                {children}
-                <ToastContainer position="top-right" autoClose={3000} />
-              </Container>
-              <Footer />
-            </ProvidersWrapper>
-          </Providers>
-        </AuthProvider>
+        <SessionWrapper>
+          <AuthProvider>
+            <Providers>
+              <ProvidersWrapper>
+                <NavBar />
+                <Container>
+                  {children}
+                  <ToastContainer position="top-right" autoClose={3000} />
+                </Container>
+                <Footer />
+              </ProvidersWrapper>
+            </Providers>
+          </AuthProvider>
+        </SessionWrapper>
       </body>
     </html>
   );

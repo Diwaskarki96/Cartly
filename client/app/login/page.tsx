@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { loginValidation } from "@/validation/loginValidationSchema";
-import { LinearProgress } from "@mui/material";
+import { Box, LinearProgress } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import Image from "next/image";
@@ -12,9 +12,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa"; // Import the icon
-
+import { useSession, signIn, signOut } from "next-auth/react";
 const LoginPage = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -109,6 +110,32 @@ const LoginPage = () => {
                       <span className="underline ml-1">Sign in</span>
                     </Link>
                   </h1>
+                  <Box marginTop={0}>
+                    {session ? (
+                      <>
+                        Signed in as {session.user.email} <br />
+                        <button onClick={() => signOut()}>Sign out</button>
+                      </>
+                    ) : (
+                      <>
+                        Not signed in <br />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            width: "100%",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <button onClick={() => signIn()}>
+                            Sign in using Github
+                          </button>
+                          <button onClick={() => signIn("google")}>
+                            Sign in using Google
+                          </button>
+                        </Box>
+                      </>
+                    )}
+                  </Box>
                 </div>
               </form>
             );
