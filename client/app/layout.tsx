@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "@/components/global/AuthContext";
 import SessionWrapper from "./SessionWrapper";
+import { Suspense } from "react";
 const inter = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -32,12 +33,14 @@ export default function RootLayout({
           <AuthProvider>
             <Providers>
               <ProvidersWrapper>
-                <NavBar />
-                <Container>
-                  {children}
-                  <ToastContainer position="top-right" autoClose={3000} />
-                </Container>
-                <Footer />
+                <Suspense fallback={<p>Loading data...</p>}>
+                  <NavBar />
+                  <Container>
+                    {children}
+                    <ToastContainer position="top-right" autoClose={3000} />
+                  </Container>
+                  <Footer />
+                </Suspense>
               </ProvidersWrapper>
             </Providers>
           </AuthProvider>

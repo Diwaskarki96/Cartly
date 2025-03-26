@@ -5,14 +5,21 @@ import { useInView } from "react-intersection-observer";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import { HeroCarousel } from "@/components/home/HeroCarousel";
 import ProductByCategory from "@/components/home/ProductByCategory";
+import { CircularProgress } from "@mui/material";
 
 const Homepage = () => {
   const [count, setCount] = useState(10); // Start with 10 components
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      setIsMounted(true);
+    }
+  }, []);
 
   const { ref, inView } = useInView({
     threshold: 1, // When 100% in view
   });
-
+  // TODO:Loader in everypage (suspense)
   useEffect(() => {
     if (inView) {
       setTimeout(() => {
@@ -20,7 +27,9 @@ const Homepage = () => {
       }, 500);
     }
   }, [inView]);
-
+  if (!isMounted) {
+    return <CircularProgress />;
+  }
   return (
     <>
       <HeroCarousel />
